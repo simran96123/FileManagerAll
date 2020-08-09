@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class GalleryAdapter  extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
+    // for videos
     private Context context;
     private List<String> images;
     private  photoListener  photoListener;

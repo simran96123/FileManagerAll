@@ -1,25 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="1dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+
+    android:layout_marginRight="10dp">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:contentDescription="Gallery Image"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </ImageView>
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+</LinearLayout>
+<RelativeLayout
+    android:id="@+id/r1_select"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:alpha="0.5"
+    android:layout_marginRight="10dp">
+</RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ImageView
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:src="@drawable/ic_launcher_background"
+    android:layout_centerInParent="true"/>
+</RelativeLayout>
+
+
+
+
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/image"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_marginStart="1dp"-->
+<!--        android:layout_marginLeft="1dp"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        android:layout_marginEnd="1dp"-->
+<!--        android:layout_marginRight="1dp"-->
+<!--        android:contentDescription="Gallery Image"-->
+<!--        android:src="@drawable/picture"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        app:layout_constraintDimensionRatio="1"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+
+
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_image"-->
+
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_marginStart="1dp"-->
+<!--        android:layout_marginLeft="1dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_marginEnd="1dp"-->
+<!--        android:layout_marginRight="1dp"-->
+<!--        android:src="@drawable/gallery"-->
+
+<!--        android:scaleType="centerCrop"-->
+<!--        app:layout_constraintDimensionRatio="1"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/image"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/image"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/image"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+
+
