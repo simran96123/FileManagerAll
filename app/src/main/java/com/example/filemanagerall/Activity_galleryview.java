@@ -15,7 +15,7 @@ public class Activity_galleryview extends Activity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.gallery_item);
+        setContentView(R.layout.videoitem);
         init();
 
 

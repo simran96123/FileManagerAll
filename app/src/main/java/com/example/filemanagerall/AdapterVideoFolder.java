@@ -21,6 +21,7 @@ public class AdapterVideoFolder extends RecyclerView.Adapter<AdapterVideoFolder.
     ArrayList<Model_Video> al_video;
     Context context;
     Activity activity;
+//   private videolistener videolistener;
 
 
 public AdapterVideoFolder(Context context , ArrayList<Model_Video> al_video , Activity activity)
@@ -62,23 +63,23 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(final  ViewHolder Vholder , final int position) {
-        Glide.with(context).load("file://" + al_video.get(position).getStr_thumb())
+
+        final Model_Video video = al_video.get(position);
+        Glide.with(context).load("file://" + al_video.get(position)
+                .getStr_thumb())
                 .skipMemoryCache(false)
                 .into(Vholder.iv_image);
-//        Vholder.rl_select.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//        Vholder.rl_select.setAlpha(0);
 
+        
+        Vholder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
-     Vholder.iv_image.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent_gallery = new Intent(context,Activity_galleryview.class);
-            intent_gallery.putExtra("video",al_video.get(position).getStr_path());
-            activity.startActivity(intent_gallery);
-
-        }
-    });
+                Intent intent_gallery = new Intent(context,Activity_galleryview.class);
+                intent_gallery.putExtra("video",al_video.get(position).getStr_path());
+                activity.startActivity(intent_gallery);
+            }
+        });
 
 }
 
@@ -86,4 +87,13 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
     public int getItemCount() {
         return al_video.size();
     }
+
+//    public interface  videolistener
+//    {
+//        void onVideoClick(Model_Video path);
+//    }
+
+
+
+
 }
