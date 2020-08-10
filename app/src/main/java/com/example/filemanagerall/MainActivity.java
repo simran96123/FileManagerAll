@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Model_Video> al_video = new ArrayList<>();
     RecyclerView.LayoutManager recyclerViewLayoutManager_Video;
     RecyclerView recyclerView_Video;
-   // VideoView vvVideo;
+
+
 
 
     Button imagebtn ,  videobtn;
@@ -50,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // init();
 
-        setContentView(R.layout.activity_main);
+
+
         gallery_number = findViewById(R.id.galleryNumber);
 
         recyclerView = findViewById(R.id.recyclerView);//
@@ -78,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
             videobtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    init();
-                   // fn_video();
+
+
+                   init();
+                    fn_video();
+
                 }
             });
-
-
 
 
         }
@@ -95,9 +98,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView_Video= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerViewLayoutManager_Video = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView_Video.setLayoutManager(recyclerViewLayoutManager_Video);
-        fn_video();
 
-
+        obj_adapter = new AdapterVideoFolder(getApplicationContext(), al_video, new AdapterVideoFolder.videolistener() {
+            @Override
+            public void onvideoclick(String path) {
+                Toast.makeText(MainActivity.this, "" + path, Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerView_Video.setAdapter(obj_adapter);
 
     }
 
@@ -123,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         column_id = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID);
         thum = cursor.getColumnIndexOrThrow(MediaStore.Video.Thumbnails.DATA);
 
+        al_video.clear();
         while (cursor.moveToNext()) {
             absolutePathOfImage = cursor.getString(column_index_data);
             Log.e("Column", absolutePathOfImage);
@@ -132,15 +141,14 @@ public class MainActivity extends AppCompatActivity {
 
             Model_Video obj_model = new Model_Video();
             obj_model.setBoolean_selected(false);
+
             obj_model.setStr_path(absolutePathOfImage);
             obj_model.setStr_thumb(cursor.getString(thum));
+
 
             al_video.add(obj_model);
 
         }
-
-        obj_adapter = new AdapterVideoFolder(getApplicationContext(),al_video,MainActivity.this);
-        recyclerView_Video.setAdapter(obj_adapter);
 
 
     }
@@ -154,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         images = ImagesGallery.listofImages(this);
+
         galleryAdapter = new GalleryAdapter(this, images, new GalleryAdapter.photoListener() {
 
             @Override
@@ -166,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
         gallery_number.setText("Photos(" + images.size() + ")");
     }
 
+
+
+    //for permission
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -176,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
                 loadImages();
-                fn_video();
+//                fn_video();
+                init();
             }
             else {
 
@@ -184,5 +197,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
 }

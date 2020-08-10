@@ -17,31 +17,47 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class AdapterVideoFolder extends RecyclerView.Adapter<AdapterVideoFolder.ViewHolder> {
-    ArrayList<Model_Video> al_video;
+public class AdapterVideoFolder extends RecyclerView.Adapter<AdapterVideoFolder.ViewHolder>  implements View.OnClickListener{
+   ArrayList<Model_Video> al_video;
+    private long mLastClickTime = System.currentTimeMillis();
+    private static final long CLICK_TIME_INTERVAL = 300;
+//
     Context context;
-    Activity activity;
-//   private videolistener videolistener;
+
+  private videolistener videolistener;
 
 
-public AdapterVideoFolder(Context context , ArrayList<Model_Video> al_video , Activity activity)
+public AdapterVideoFolder(Context context , ArrayList<Model_Video> al_video,AdapterVideoFolder.videolistener videolistener )
 {
     this.al_video = al_video;
     this.context = context;
-    this.activity = activity;
+   this.videolistener = videolistener;
+
 }
 
-public static  class  ViewHolder extends RecyclerView.ViewHolder
+    @Override
+    public void onClick(View view) {
+        long now = System.currentTimeMillis();
+        if (now - mLastClickTime < CLICK_TIME_INTERVAL) {
+            return;
+        }
+        mLastClickTime = now;
+
+
+    }
+
+    public static  class  ViewHolder extends RecyclerView.ViewHolder
 {
     public ImageView iv_image;
-//    RelativeLayout rl_select;
+
+
 
     public ViewHolder(View v) {
 
         super(v);
 
        iv_image = (ImageView) v.findViewById(R.id.iv_image);
-//        rl_select = (RelativeLayout) v.findViewById(R.id.r1_select);
+
 
 
     }
@@ -64,22 +80,14 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(final  ViewHolder Vholder , final int position) {
 
-        final Model_Video video = al_video.get(position);
+
         Glide.with(context).load("file://" + al_video.get(position)
                 .getStr_thumb())
                 .skipMemoryCache(false)
                 .into(Vholder.iv_image);
 
 
-//        Vholder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//               Intent intent_gallery = new Intent(context,Activity_galleryview.class);
-//                intent_gallery.putExtra("video",al_video.get(position).getStr_path());
-//                activity.startActivity(intent_gallery);
-//            }
-//        });
+
 
 }
 
@@ -88,10 +96,10 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
         return al_video.size();
     }
 
-//    public interface  videolistener
-//    {
-//        void onVideoClick(Model_Video path);
-//    }
+    public interface  videolistener
+    {
+        void onvideoclick(String path);
+    }
 
 
 
