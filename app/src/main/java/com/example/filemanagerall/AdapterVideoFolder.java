@@ -70,16 +70,16 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
                 .skipMemoryCache(false)
                 .into(Vholder.iv_image);
 
-        
-        Vholder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent_gallery = new Intent(context,Activity_galleryview.class);
-                intent_gallery.putExtra("video",al_video.get(position).getStr_path());
-                activity.startActivity(intent_gallery);
-            }
-        });
+//        Vholder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//               Intent intent_gallery = new Intent(context,Activity_galleryview.class);
+//                intent_gallery.putExtra("video",al_video.get(position).getStr_path());
+//                activity.startActivity(intent_gallery);
+//            }
+//        });
 
 }
 
