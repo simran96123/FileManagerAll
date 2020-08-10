@@ -33,14 +33,14 @@ public AdapterVideoFolder(Context context , ArrayList<Model_Video> al_video , Ac
 public static  class  ViewHolder extends RecyclerView.ViewHolder
 {
     public ImageView iv_image;
-    RelativeLayout rl_select;
+//    RelativeLayout rl_select;
 
     public ViewHolder(View v) {
 
         super(v);
 
-        iv_image = (ImageView) v.findViewById(R.id.iv_image);
-        rl_select = (RelativeLayout) v.findViewById(R.id.r1_select);
+       iv_image = (ImageView) v.findViewById(R.id.iv_image);
+//        rl_select = (RelativeLayout) v.findViewById(R.id.r1_select);
 
 
     }
@@ -53,7 +53,7 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
     public AdapterVideoFolder.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.videoitem, parent, false);
 
         ViewHolder viewHolder1 = new ViewHolder(view);
 
@@ -65,12 +65,12 @@ public static  class  ViewHolder extends RecyclerView.ViewHolder
         Glide.with(context).load("file://" + al_video.get(position).getStr_thumb())
                 .skipMemoryCache(false)
                 .into(Vholder.iv_image);
-        Vholder.rl_select.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        Vholder.rl_select.setAlpha(0);
+//        Vholder.rl_select.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//        Vholder.rl_select.setAlpha(0);
 
 
 
-     Vholder.rl_select.setOnClickListener(new View.OnClickListener() {
+     Vholder.iv_image.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent_gallery = new Intent(context,Activity_galleryview.class);

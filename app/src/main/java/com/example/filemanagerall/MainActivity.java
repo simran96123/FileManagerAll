@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
 
-        recyclerView_Video= (RecyclerView) findViewById(R.id.recyclerViewVideo);
+        recyclerView_Video= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerViewLayoutManager_Video = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView_Video.setLayoutManager(recyclerViewLayoutManager_Video);
         fn_video();
