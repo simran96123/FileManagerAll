@@ -47,6 +47,17 @@
 
     </Button>
 
+    <Button
+        android:id="@+id/audioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:text="Audio"
+        app:layout_constraintStart_toEndOf="@id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@id/imageButton"></Button>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

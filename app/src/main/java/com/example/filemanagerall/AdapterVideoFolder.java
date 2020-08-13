@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 public class AdapterVideoFolder extends RecyclerView.Adapter<AdapterVideoFolder.ViewHolder>  implements View.OnClickListener{
    ArrayList<Model_Video> al_video;
+
+
     private long mLastClickTime = System.currentTimeMillis();
     private static final long CLICK_TIME_INTERVAL = 300;
 //

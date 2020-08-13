@@ -6,22 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager recyclerViewLayoutManager_Video;
     RecyclerView recyclerView_Video;
 
+    AudioAdapter audioAdapter;
+    ArrayList<ModelAudio> al_audio = new ArrayList<>();
 
-
-
-    Button imagebtn ,  videobtn;
+    Button imagebtn ,  videobtn,audiobtn;
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
     List<String> images;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);//
         imagebtn = findViewById(R.id.imageButton);
         videobtn = findViewById(R.id.videoButton);
+        audiobtn = findViewById(R.id.audioButton);
 //        document = findViewById(R.id.Document);
 
 
@@ -80,19 +81,30 @@ public class MainActivity extends AppCompatActivity {
             videobtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-
-                   init();
-                    fn_video();
+                    init();
+                   fn_video();
 
                 }
             });
+
+            audiobtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setaudioAdapter();
+                    audio();
+                }
+            });
+
+
+
+
 
 
         }
 
     }
 
+//    setting reclerview for videoes
     private void init(){
 
         recyclerView_Video= (RecyclerView) findViewById(R.id.recyclerView);
@@ -109,7 +121,59 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+//setting recyclerview for audios
 
+    private void setaudioAdapter()
+    {
+
+        recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerViewLayoutManager_Video = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(recyclerViewLayoutManager_Video);
+        audioAdapter = new AudioAdapter(getApplicationContext(), al_audio);
+
+
+        recyclerView.setAdapter(audioAdapter);
+
+    }
+
+
+//acessing all audio from storage
+@RequiresApi(api = Build.VERSION_CODES.O)
+ private void audio() {
+
+
+    ContentResolver musicResolver = getContentResolver();
+    Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+    Cursor musicCursor = musicResolver.query(musicUri,null,null,null);
+
+    if(musicCursor != null && musicCursor.moveToFirst()){
+
+
+        int idColumn = musicCursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
+
+        int titleColumnn = musicCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+
+        int artististColumn = musicCursor.getColumnIndexOrThrow
+                (MediaStore.Audio.Media.ARTIST);
+
+        do{
+            long thisId = musicCursor.getLong(idColumn);
+            String thisTitle = musicCursor.getString(titleColumnn);
+            String thisArtist = musicCursor.getString(artististColumn);
+            al_audio.add(new ModelAudio(thisId,thisTitle,thisArtist));
+
+        }while (musicCursor.moveToNext());
+
+    }
+
+
+}
+
+
+
+
+
+//    acessing all video from gallary
 
     public void fn_video() {
 
@@ -121,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
         String absolutePathOfImage = null;
         uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
 
-        String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Video.Media.BUCKET_DISPLAY_NAME,MediaStore.Video.Media._ID,MediaStore.Video.Thumbnails.DATA};
+        String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Video.Media.BUCKET_DISPLAY_NAME,
+                MediaStore.Video.Media._ID,MediaStore.Video.Thumbnails.DATA};
 
         final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
         cursor = getApplicationContext().getContentResolver().query(uri, projection, null, null, orderBy + " DESC");

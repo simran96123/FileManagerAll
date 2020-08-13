@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/audioImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:contentDescription="Gallery Image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/audioimage"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TitleTExt"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintWidth_percent="1"
+        app:layout_constraintBottom_toBottomOf="@id/audioImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toEndOf="@id/audioImage"
+        app:layout_constraintTop_toTopOf="@id/audioImage"
+        app:layout_constraintVertical_bias="0.26">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ArtistName"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        app:layout_constraintWidth_percent="1"
+        app:layout_constraintStart_toStartOf="@id/textTitle"
+        app:layout_constraintEnd_toEndOf="@id/textTitle"
+        app:layout_constraintBottom_toBottomOf="@id/audioImage"
+        app:layout_constraintTop_toBottomOf="@id/textTitle"
+        ></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
