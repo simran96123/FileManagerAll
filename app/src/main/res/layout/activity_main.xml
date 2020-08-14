@@ -10,10 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Gallery Images"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,9 +22,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Image"
-        app:layout_constraintStart_toStartOf="@+id/galleryNumber"
-        app:layout_constraintEnd_toEndOf="@+id/galleryNumber"
-        app:layout_constraintTop_toBottomOf="@+id/galleryNumber">
+        android:layout_marginLeft="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/audioButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/videoButton"
+        app:layout_constraintTop_toTopOf="@+id/videoButton"
+        app:layout_constraintBottom_toBottomOf="@id/videoButton">
 
     </Button>
 
@@ -37,13 +36,13 @@
         android:id="@+id/videoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="3dp"
         android:text="Video"
-        app:layout_constraintBottom_toBottomOf="@id/imageButton"
         app:layout_constraintEnd_toEndOf="@+id/imageButton"
-        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageButton">
+        app:layout_constraintTop_toBottomOf="@id/galleryNumber">
 
     </Button>
 
@@ -51,12 +50,31 @@
         android:id="@+id/audioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="5dp"
         android:text="Audio"
+        app:layout_constraintBottom_toBottomOf="@id/imageButton"
+        app:layout_constraintEnd_toStartOf="@id/documentbutton"
+        app:layout_constraintHorizontal_bias="0.67"
         app:layout_constraintStart_toEndOf="@id/imageButton"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/imageButton"
-        app:layout_constraintBottom_toBottomOf="@id/imageButton"></Button>
+        app:layout_constraintVertical_bias="0.0">
+
+    </Button>
+
+    <Button
+        android:id="@+id/documentbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:text="Document"
+        app:layout_constraintBottom_toBottomOf="@id/audioButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toEndOf="@id/audioButton"
+        app:layout_constraintTop_toTopOf="@id/audioButton">
+
+    </Button>
 
 
     <androidx.recyclerview.widget.RecyclerView

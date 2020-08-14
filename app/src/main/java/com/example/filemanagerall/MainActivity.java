@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +39,16 @@ public class MainActivity extends AppCompatActivity {
     AudioAdapter audioAdapter;
     ArrayList<ModelAudio> al_audio = new ArrayList<>();
 
-    Button imagebtn ,  videobtn,audiobtn;
+    Button imagebtn ,  videobtn,audiobtn,documentbtn;
     RecyclerView recyclerView;
     GalleryAdapter galleryAdapter;
     List<String> images;
     TextView gallery_number;
+    PdfAdapter pdfAdapter;
+    public static ArrayList<File> fileList = new ArrayList<File>();
+    boolean boolean_permission;
+    File dir;
+
 
 
     public static final int MY_READ_PERMISSION_CODE = 101;
@@ -61,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         imagebtn = findViewById(R.id.imageButton);
         videobtn = findViewById(R.id.videoButton);
         audiobtn = findViewById(R.id.audioButton);
-//        document = findViewById(R.id.Document);
+        documentbtn = findViewById(R.id.documentbutton);
+
 
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -95,12 +103,36 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            documentbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                 acessfiles();
+                 getfile(dir);
+                }
+            });
+
 
 
 
 
 
         }
+
+    }
+
+
+    //setting adapter for document
+    private void acessfiles() {
+        dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        boolean_permission = true;
+        getfile(dir);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerViewLayoutManager_Video = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(recyclerViewLayoutManager_Video);
+        pdfAdapter = new PdfAdapter(getApplicationContext(), fileList);
+
+
+        recyclerView.setAdapter(pdfAdapter);
 
     }
 
@@ -121,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
 //setting recyclerview for audios
 
     private void setaudioAdapter()
@@ -134,6 +168,119 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(audioAdapter);
 
+    }
+
+
+    //acessing all documents from storage
+
+    public ArrayList<File> getfile(File dir) {
+        File Listview[] = dir.listFiles();
+        if (Listview != null && Listview.length > 0) {
+            for (int i = 0; i < Listview.length; i++) {
+                if (Listview[i].isDirectory()) {
+                    getfile(Listview[i]);
+
+                } else {
+
+                    boolean booleanpdf = false;
+                    if (Listview[i].getName().endsWith(".pdf")) {
+
+                        for (int j = 0; j < fileList.size(); j++) {
+                            if (fileList.get(j).getName().equals(Listview[i].getName())) {
+                                booleanpdf = true;
+
+
+                            } else {
+
+                            }
+                        }
+                        if (booleanpdf) {
+                            booleanpdf = false;
+                        } else {
+                            fileList.add(Listview[i]);
+                        }
+                    }
+
+
+                    if (Listview[i].getName().endsWith(".txt")) {
+
+                        for (int k = 0; k < fileList.size(); k++) {
+                            if (fileList.get(k).getName().equals(Listview[i].getName())) {
+                                booleanpdf = true;
+                            }
+                            else {
+
+                            }
+                        }
+                        if (booleanpdf) {
+                            booleanpdf = false;
+                        } else {
+                            fileList.add(Listview[i]);
+                        }
+                    }
+                    if (Listview[i].getName().endsWith(".docx")) {
+
+                        for (int l = 0; l < fileList.size(); l++) {
+                            if (fileList.get(l).getName().equals(Listview[i].getName())) {
+                                booleanpdf = true;
+                            }
+                            else {
+
+                            }
+                        }
+                        if (booleanpdf) {
+                            booleanpdf = false;
+                        } else {
+                            fileList.add(Listview[i]);
+                        }
+                    }
+
+
+                    if (Listview[i].getName().endsWith(".pptx")) {
+
+                        for (int m = 0; m < fileList.size(); m++) {
+                            if (fileList.get(m).getName().equals(Listview[i].getName())) {
+                                booleanpdf = true;
+                            }
+                            else {
+
+                            }
+                        }
+                        if (booleanpdf) {
+                            booleanpdf = false;
+                        } else {
+                            fileList.add(Listview[i]);
+                        }
+                    }
+
+
+                    if (Listview[i].getName().endsWith(".xlsx")) {
+
+                        for (int n = 0; n < fileList.size(); n++) {
+                            if (fileList.get(n).getName().equals(Listview[i].getName())) {
+                                booleanpdf = true;
+                            }
+                            else {
+
+                            }
+                        }
+                        if (booleanpdf) {
+                            booleanpdf = false;
+                        } else {
+                            fileList.add(Listview[i]);
+                        }
+                    }
+
+
+
+
+
+                }
+            }
+        }
+
+
+        return fileList;
     }
 
 
